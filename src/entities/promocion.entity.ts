@@ -12,7 +12,7 @@ export class Promocion {
   @Column({ nullable: true })
   descripcion: string
 
-  @Column('decimal')
+  @Column('decimal', { precision: 5, scale: 2 })
   descuento: number
 
   @ManyToMany(() => Producto, producto => producto.promociones)

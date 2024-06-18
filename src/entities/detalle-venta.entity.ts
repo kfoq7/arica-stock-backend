@@ -3,19 +3,19 @@ import { Ventas } from './ventas.entity'
 import { Producto } from './producto.entity'
 
 @Entity()
-export class VentasProductos {
+export class DetalleVenta {
   @PrimaryGeneratedColumn()
   id: number
 
-  @ManyToOne(() => Ventas, ventas => ventas.ventasProductos)
-  ventas: Ventas
+  @ManyToOne(() => Ventas, ventas => ventas.detalleVenta)
+  venta: Ventas
 
-  @ManyToOne(() => Producto, producto => producto.ventasProductos)
+  @ManyToOne(() => Producto, producto => producto.detalleVenta)
   producto: Producto
 
   @Column('int')
   cantidad: number
 
-  @Column('decimal')
+  @Column('decimal', { precision: 5, scale: 2 })
   precio: number
 }

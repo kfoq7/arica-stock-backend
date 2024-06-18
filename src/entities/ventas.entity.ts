@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
-import { VentasProductos } from './ventas-producto.entity'
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm'
+import { DetalleVenta } from './detalle-venta.entity'
+import { Cliente } from './cliente.entity'
+import { Empleado } from './empleado.entity'
 
 @Entity()
 export class Ventas {
@@ -9,9 +11,15 @@ export class Ventas {
   @Column()
   fecha: Date
 
-  @Column('decimal')
+  @Column('decimal', { precision: 5, scale: 2 })
   total: number
 
-  @OneToMany(() => VentasProductos, ventasProductos => ventasProductos.ventas)
-  ventasProductos: VentasProductos[]
+  @ManyToOne(() => Cliente)
+  cliente: Cliente
+
+  @ManyToOne(() => Empleado)
+  empleado: Empleado
+
+  @OneToMany(() => DetalleVenta, detalleVenta => detalleVenta.venta, { cascade: true })
+  detalleVenta: DetalleVenta[]
 }

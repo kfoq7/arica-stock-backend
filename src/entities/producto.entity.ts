@@ -9,7 +9,7 @@ import {
 } from 'typeorm'
 import { Categoria } from './categoria.entity'
 import { Promocion } from './promocion.entity'
-import { VentasProductos } from './ventas-producto.entity'
+import { DetalleVenta } from './detalle-venta.entity'
 
 @Entity()
 export class Producto {
@@ -32,6 +32,6 @@ export class Producto {
   @JoinTable()
   promociones: Promocion[]
 
-  @OneToMany(() => VentasProductos, ventasProductos => ventasProductos.producto)
-  ventasProductos: VentasProductos[]
+  @OneToMany(() => DetalleVenta, detalleVenta => detalleVenta.producto)
+  detalleVenta: DetalleVenta[]
 }
