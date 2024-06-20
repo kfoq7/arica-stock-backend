@@ -42,3 +42,13 @@ export const insertVenta = async (ventaData: Ventas) => {
 
   return venta
 }
+
+export const getAllVentas = async () => {
+  return ventasRepository.find({
+    relations: {
+      detalleVenta: {
+        producto: true
+      }
+    }
+  })
+}
