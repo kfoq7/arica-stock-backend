@@ -19,7 +19,7 @@ export class Producto {
   @Column({ type: 'varchar', length: 100 })
   nombre: string
 
-  @Column()
+  @Column('decimal', { precision: 5, scale: 2 })
   precio: number
 
   @Column({})

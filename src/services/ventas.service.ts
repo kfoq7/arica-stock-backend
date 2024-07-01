@@ -1,3 +1,4 @@
+import { Between, MoreThan } from 'typeorm'
 import { AppDataSource } from '../config/database'
 import { Ventas } from '../entities/ventas.entity'
 import { Producto } from '../entities/producto.entity'
@@ -51,4 +52,30 @@ export const getAllVentas = async () => {
       }
     }
   })
+}
+
+export const getVentasInfo = async () => {
+  const ventas = await ventasRepository.find()
+
+  const today = new Date()
+  today.setHours(0, 0, 0, 0) // Set time to 00:00:00.000
+
+  const todayVentas = await ventasRepository.find({
+    relations: { detalleVenta: true },
+    where: { fecha: Between(today, new Date(today.getTime() + 24 * 60 * 60 * 1000)) }
+  })
+
+  const totalVentas = ventas.reduce((total, venta) => {
+    return Number(venta.total) + Number(total)
+  }, 0)
+  const totalTodayVentas = todayVentas.reduce((total, venta) => {
+    return Number(venta.total) + Number(total)
+  }, 0)
+
+  return {
+    totalVentas,
+    totalTodayVentas,
+    totalTodayCount: todayVentas.length,
+    todayVentas
+  }
 }

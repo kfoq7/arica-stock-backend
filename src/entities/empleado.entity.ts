@@ -9,6 +9,9 @@ export class Empleado {
   nombre: string
 
   @Column({ nullable: true })
+  nickname: string
+
+  @Column({ nullable: true })
   telefono: number
 
   @Column({ nullable: true })
