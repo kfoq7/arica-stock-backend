@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'ty
 import { DetalleVenta } from './detalle-venta.entity'
 import { Cliente } from './cliente.entity'
 import { Empleado } from './empleado.entity'
+import { MetodoPago } from './metodo-pago.entity'
 
 @Entity()
 export class Ventas {
@@ -19,6 +20,9 @@ export class Ventas {
 
   @ManyToOne(() => Empleado)
   empleado: Empleado
+
+  @ManyToOne(() => MetodoPago)
+  metodoPago: MetodoPago
 
   @OneToMany(() => DetalleVenta, detalleVenta => detalleVenta.venta, { cascade: true })
   detalleVenta: DetalleVenta[]
